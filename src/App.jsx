@@ -11,7 +11,7 @@ import { CartProvider } from './context/CartContext';
 
 function App() {
   return (
-    <CartProvider> {/* <- El proveedor DEBE envolver al BrowserRouter y a todo lo demás */}
+    <CartProvider>
       <BrowserRouter>
         <Navbar />
         <Routes>

@@ -1,107 +1,70 @@
 import { useState } from 'react';
 
 const Register = () => {
-  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  
-  const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [success, setSuccess] = useState(false);
-
-  
-  const handleSubmit = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
 
     
-    setError(false);
-    setSuccess(false);
-
-    
     if (!email.trim() || !password.trim() || !confirmPassword.trim()) {
-      setError(true);
-      setErrorMessage('Todos los campos son obligatorios.');
+      alert('Todos los campos son obligatorios');
       return;
     }
 
     
     if (password.length < 6) {
-      setError(true);
-      setErrorMessage('La contraseña debe tener al menos 6 caracteres.');
+      alert('Password must be at least 6 characters!');
       return;
     }
 
     
     if (password !== confirmPassword) {
-      setError(true);
-      setErrorMessage('Las contraseñas no coinciden.');
+      alert('El password y la confirmación deben ser iguales');
       return;
     }
 
     
-    setSuccess(true);
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
+    alert('Authentication successful!');
   };
 
   return (
-    <div className="container my-5 d-flex justify-content-center">
-      <form onSubmit={handleSubmit} className="col-12 col-md-6 border p-4 rounded shadow-sm bg-light">
-        <h2 className="text-center mb-4 fw-bold">Registro</h2>
-
-        {/* Mensaje de Error */}
-        {error && (
-          <div className="alert alert-danger text-center" role="alert">
-            {errorMessage}
-          </div>
-        )}
-
-        {/* Mensaje de Éxito */}
-        {success && (
-          <div className="alert alert-success text-center" role="alert">
-            ¡Registro completado con éxito!
-          </div>
-        )}
-
+    <div className="container mt-5" style={{ maxWidth: '400px' }}>
+      <h2>Register</h2>
+      <form onSubmit={handleRegister}>
         <div className="mb-3">
-          <label className="form-label font-weight-bold">Email</label>
+          <label className="form-label">Email</label>
           <input
             type="email"
             className="form-control"
-            placeholder="Ingresa tu email"
-            value={email}
+            placeholder="Enter your email"
             onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
         </div>
-
         <div className="mb-3">
-          <label className="form-label font-weight-bold">Contraseña</label>
+          <label className="form-label">Password</label>
           <input
             type="password"
-            className="form-control"
-            placeholder="Ingresa tu contraseña"
-            value={password}
+            className="form-label form-control" 
+            placeholder="Enter your password"
             onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
         </div>
-
         <div className="mb-3">
-          <label className="form-label font-weight-bold">Confirmar contraseña</label>
+          <label className="form-label">Confirm Password</label>
           <input
             type="password"
             className="form-control"
-            placeholder="Confirma tu contraseña"
-            value={confirmPassword}
+            placeholder="Confirm your password"
             onChange={(e) => setConfirmPassword(e.target.value)}
+            value={confirmPassword}
           />
         </div>
-
-        <button type="submit" className="btn btn-dark w-100 mt-3">
-          Enviar Registro
-        </button>
+        <button type="submit" className="btn btn-dark">Submit</button>
       </form>
     </div>
   );
