@@ -6,7 +6,7 @@ const Home = () => {
   const [pizzas, setPizzas] = useState([]);
 
   useEffect(() => {
-    // Cargamos las pizzas directamente desde el archivo local de utils
+    
     setPizzas(pizzasLocales);
   }, []);
 
