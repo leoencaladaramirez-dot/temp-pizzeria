@@ -17,7 +17,7 @@ const Home = () => {
     } catch (error) {
       console.warn("Usando datos locales de respaldo debido a:", error.message);
       
-      // Respaldo local para que Vercel no falle al no tener el backend local
+      
       const pizzasLocales = [
         {
           id: "p001",
