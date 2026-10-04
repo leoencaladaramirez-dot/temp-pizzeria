@@ -7,10 +7,63 @@ const Home = () => {
   const consultarApi = async () => {
     try {
       const response = await fetch("http://localhost:5000/api/pizzas");
+      
+      if (!response.ok) {
+        throw new Error("No se pudo conectar al backend");
+      }
+      
       const data = await response.json();
       setPizzas(data);
     } catch (error) {
-      console.error("Error al cargar las pizzas:", error);
+      console.warn("Usando datos locales de respaldo debido a:", error.message);
+      
+      // Respaldo local para que Vercel no falle al no tener el backend local
+      const pizzasLocales = [
+        {
+          id: "p001",
+          name: "Napolitana",
+          price: 5950,
+          ingredients: ["mozzarella", "tomates", "jamón", "orégano"],
+          img: "/img/p001.jpeg"
+        },
+        {
+          id: "p002",
+          name: "Española",
+          price: 7250,
+          ingredients: ["mozzarella", "tomates", "jamón", "chorizo"],
+          img: "/img/p002.jpeg"
+        },
+        {
+          id: "p003",
+          name: "Salame",
+          price: 5990,
+          ingredients: ["mozzarella", "tomates", "salame", "orégano"],
+          img: "/img/p003.jpeg"
+        },
+        {
+          id: "p004",
+          name: "Four Cheese",
+          price: 8500,
+          ingredients: ["mozzarella", "gorgonzola", "parmesano", "provolone"],
+          img: "/img/p004.jpeg"
+        },
+        {
+          id: "p005",
+          name: "Vegetariana",
+          price: 6500,
+          ingredients: ["mozzarella", "tomates", "champiñones", "pimentón"],
+          img: "/img/p005.jpeg"
+        },
+        {
+          id: "p006",
+          name: "Pepperoni",
+          price: 7000,
+          ingredients: ["mozzarella", "pepperoni", "orégano"],
+          img: "/img/p006.jpeg"
+        }
+      ];
+      
+      setPizzas(pizzasLocales);
     }
   };
 
