@@ -1,16 +1,23 @@
 import { useState, useEffect, useContext } from 'react';
 import { formatNumber } from '../utils/format';
 import { CartContext } from '../context/CartContext';
-import { pizzas } from '../utils/pizzas'; 
 
 const Pizza = () => {
   const [pizza, setPizza] = useState(null);
   const { addToCart } = useContext(CartContext);
 
+  const consultarApi = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/pizzas/p001");
+      const data = await response.json();
+      setPizza(data);
+    } catch (error) {
+      console.error("Error al cargar la pizza:", error);
+    }
+  };
+
   useEffect(() => {
-    
-    const encontrada = pizzas.find((p) => p.id === 'p001') || pizzas[0];
-    setPizza(encontrada);
+    consultarApi();
   }, []);
 
   if (!pizza) return <div className="text-center my-5">Cargando pizza...</div>;

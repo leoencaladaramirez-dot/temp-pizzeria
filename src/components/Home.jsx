@@ -1,13 +1,21 @@
 import { useState, useEffect } from 'react';
 import CardPizza from './CardPizza';
-import { pizzas as pizzasLocales } from '../utils/pizzas';
 
 const Home = () => {
   const [pizzas, setPizzas] = useState([]);
 
+  const consultarApi = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/pizzas");
+      const data = await response.json();
+      setPizzas(data);
+    } catch (error) {
+      console.error("Error al cargar las pizzas:", error);
+    }
+  };
+
   useEffect(() => {
-    
-    setPizzas(pizzasLocales);
+    consultarApi();
   }, []);
 
   return (

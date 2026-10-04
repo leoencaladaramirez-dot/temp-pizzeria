@@ -6,15 +6,28 @@ import { Link } from 'react-router-dom';
 const CardPizza = ({ pizza }) => {
   const { addToCart } = useContext(CartContext);
 
+  if (!pizza) return null;
+
+  
+  const localImage = `/img/${pizza.id}.jpeg`;
+
   return (
     <div className="card h-100 shadow-sm">
-      <img src={pizza.img} className="card-img-top" alt={pizza.name} style={{ height: '220px', objectFit: 'cover' }} />
+      <div style={{ height: '220px', overflow: 'hidden' }}>
+        <img 
+          src={localImage} 
+          className="card-img-top w-100 h-100 object-fit-cover" 
+          alt={pizza.name}
+          
+          onError={(e) => { e.target.src = pizza.img; }}
+        />
+      </div>
       <div className="card-body d-flex flex-column">
         <h3 className="card-title text-capitalize fw-bold fs-4 mb-3">{pizza.name}</h3>
         
         <p className="card-text text-muted mb-1 fw-semibold">Ingredientes:</p>
         <ul className="list-unstyled mb-4 ps-3">
-          {pizza.ingredients.map((ingredient, index) => (
+          {pizza.ingredients?.map((ingredient, index) => (
             <li key={index} className="text-muted text-capitalize">🍕 {ingredient}</li>
           ))}
         </ul>
