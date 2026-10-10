@@ -6,7 +6,7 @@ import { formatNumber } from '../utils/format';
 const Navbar = () => {
   const { cart } = useContext(CartContext);
 
-  // Cálculo idéntico y seguro basado estrictamente en los elementos del carrito
+  
   const total = cart.reduce((acc, item) => acc + (Number(item.price) * Number(item.count)), 0);
 
   return (

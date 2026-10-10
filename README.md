@@ -1,29 +1,26 @@
-# Pizzería Mamma Mía - Hito 4
+# Pizzería Mamma Mía - Hito 5
 
-Proyecto desarrollado en React (Vite) en el marco de la Academia de Talentos Digitales (Desafío Latam), enfocado en la conexión con una API backend mediante Node.js, consumo de datos asíncronos (`fetch`, `async/await`), manejo de efectos con `useEffect` y resolución de recursos visuales locales.
+Proyecto desarrollado en React (Vite) en el marco de la Academia de Talentos Digitales (Desafío Latam), enfocado en la implementación de rutas dinámicas mediante **React Router DOM**, manejo de parámetros en la URL (`:id`), visualización detallada de productos individuales (`Pizza.jsx`), sincronización de datos locales y globales, y control interactivo de cantidades del carrito de compras.
 
-## 🚀 Funcionalidades del Hito 4
-- **Consumo de API Backend (`Home.jsx`):**
-  - Conexión asíncrona con el servidor backend en Node.js (`http://localhost:5000/api/pizzas`) mediante `fetch` y `async/await`.
-  - Implementación del hook `useEffect` para realizar la petición HTTP al montar el componente y almacenar la respuesta en el estado local (`useState`).
-  - Recorrido dinámico del arreglo de pizzas obtenido desde la API para renderizar las tarjetas correspondientes.
+## 🚀 Funcionalidades del Hito 5
+- **Rutas Dinámicas e Identificadores (`App.jsx` y `Pizza.jsx`):**
+  - Configuración de una ruta dinámica basada en parámetros (`/pizza/:id`) en `App.jsx` para permitir el acceso individual a cada producto del catálogo.
+  - Uso del hook `useParams` de `react-router-dom` para capturar el identificador de la pizza seleccionada desde la URL.
 
-- **Alternativa de Renderizado de Imágenes Locales:**
-  - Implementación de un directorio local (`public/img/`) para almacenar las imágenes de las pizzas nombradas por ID (`p001.jpeg`, `p002.jpeg`, etc.) debido a limitaciones de enlaces externos del backend.
-  - Asignación dinámica de rutas locales en `CardPizza.jsx` mediante plantillas de texto (`/img/${pizza.id}.jpeg`) para garantizar la consistencia visual de la interfaz.
+- **Gestión de Datos y Respaldo Local:**
+  - Implementación de un catálogo de respaldo robusto en el componente `Pizza.jsx` con asignación flexible de IDs y carga instantánea de información detallada (descripción, ingredientes y precios formateados).
+  - Integración de recursos visuales locales almacenados en la carpeta `public/img/` mediante plantillas de texto dinámicas (`/img/${id}.jpeg`) para asegurar la consistencia gráfica.
 
-- **Estructura y Componentes:**
-  - Actualización del componente `CardPizza.jsx` para la correcta recepción y visualización de props e imágenes con estilos responsivos de Bootstrap (`object-fit-cover`).
-  - Mantenimiento de la navegación fluida y el diseño moderno basado en Bootstrap 5.3.3 y React Router DOM.
+- **Sincronización Interactiva con el Carrito (`CartContext`):**
+  - Incorporación del botón "Añadir 🛒" y controles interactivos de incremento (`+`) y decremento (`-`) sincronizados directamente con el estado global del carrito.
+  - Verificación en tiempo real de la cantidad de unidades agregadas de cada pizza para alternar de manera fluida entre la opción de compra inicial y el selector dinámico.
 
 ## 🛠️ Tecnologías Utilizadas
 - React (Vite)
-- Node.js & Express (API Backend local)
-- Fetch API / Async-Await
-- React Router DOM
-- Context API (Manejo de estado global del carrito)
+- React Router DOM (`useParams`)
+- Context API (Sincronización del estado global del carrito)
 - Bootstrap 5.3.3
-
+- JavaScript (ES6+ / Async-Await)
 
 ## 👨‍💻 Hecho por
 

@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Home from './components/Home';
-import Cart from './components/Cart';
-import Pizza from './components/Pizza';
-import Login from './components/Login';
-import Register from './components/Register';
-import Profile from './components/Profile';
-import NotFound from './components/NotFound';
+import Home from './pages/Home';
+import Cart from './pages/Cart';
+import Pizza from './pages/Pizza';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Profile from './pages/Profile';
+import NotFound from './pages/NotFound';
 import { CartProvider } from './context/CartContext';
 
 function App() {
