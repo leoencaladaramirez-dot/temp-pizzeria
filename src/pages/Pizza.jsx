@@ -163,4 +163,4 @@ const Pizza = () => {
   );
 };
 
-exports default Pizza; 
+export default Pizza; 
