@@ -8,7 +8,6 @@ const Pizza = () => {
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
-  
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
 
   useEffect(() => {
@@ -88,56 +87,58 @@ const Pizza = () => {
     return <div className="text-center mt-5"><h3>No se encontró la pizza solicitada 😕</h3></div>;
   }
 
-  
   const pizzaInCart = cart?.find(item => item.id === pizza.id);
   const quantity = pizzaInCart ? pizzaInCart.count : 0;
 
   return (
-    <div className="container mt-5">
+    <div className="container my-4">
       <div className="row justify-content-center">
-        <div className="col-md-9">
-          <div className="card shadow-sm p-4">
+        <div className="col-12 col-md-10 col-lg-9">
+          <div className="card shadow-sm p-3 p-md-4">
             <div className="row align-items-center">
-              <div className="col-md-6 mb-3 mb-md-0">
+              
+              <div className="col-12 col-md-6 mb-3 mb-md-0">
                 <img 
                   src={pizza.img} 
                   alt={pizza.name} 
                   className="img-fluid rounded shadow-sm w-100" 
-                  style={{ height: '320px', objectFit: 'cover' }}
+                  style={{ maxHeight: '300px', objectFit: 'cover' }}
                   onError={(e) => { 
                     e.target.src = "/img/p001.jpeg"; 
                   }}
                 />
               </div>
-              <div className="col-md-6 d-flex flex-column justify-content-between">
+              
+              
+              <div className="col-12 col-md-6 d-flex flex-column justify-content-between">
                 <div>
-                  <h2 className="text-capitalize fw-bold mb-3">{pizza.name}</h2>
-                  <p className="text-muted">{pizza.desc}</p>
+                  <h2 className="text-capitalize fw-bold mb-2 fs-3">{pizza.name}</h2>
+                  <p className="text-muted small">{pizza.desc}</p>
                   
-                  <h5 className="fw-semibold mt-3">Ingredientes:</h5>
-                  <ul className="list-unstyled ps-2">
+                  <h5 className="fw-semibold mt-3 fs-6">Ingredientes:</h5>
+                  <ul className="list-unstyled ps-2 mb-0">
                     {pizza.ingredients?.map((ingredient, index) => (
-                      <li key={index} className="text-capitalize text-secondary">🍕 {ingredient}</li>
+                      <li key={index} className="text-capitalize text-secondary small">🍕 {ingredient}</li>
                     ))}
                   </ul>
                 </div>
 
                 
-                <div className="mt-4 pt-2 border-top d-flex justify-content-between align-items-center">
-                  <h3 className="fw-bold text-dark mb-0">Precio: ${formatNumber(pizza.price)}</h3>
+                <div className="mt-4 pt-3 border-top d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3">
+                  <h4 className="fw-bold text-dark mb-0 fs-4">Precio: ${formatNumber(pizza.price)}</h4>
                   
-                  <div className="d-flex align-items-center gap-2">
+                  <div className="d-flex align-items-center justify-content-center w-100 w-sm-auto">
                     {quantity > 0 ? (
                       <div className="d-flex align-items-center gap-2">
                         <button 
-                          className="btn btn-outline-danger fw-bold px-3"
+                          className="btn btn-outline-danger fw-bold px-3 py-1"
                           onClick={() => removeFromCart(pizza.id)}
                         >
                           -
                         </button>
                         <span className="fw-bold fs-5 px-2">{quantity}</span>
                         <button 
-                          className="btn btn-dark fw-bold px-3"
+                          className="btn btn-dark fw-bold px-3 py-1"
                           onClick={() => addToCart(pizza)}
                         >
                           +
@@ -145,7 +146,7 @@ const Pizza = () => {
                       </div>
                     ) : (
                       <button 
-                        className="btn btn-dark fw-semibold px-4 py-2"
+                        className="btn btn-dark fw-semibold px-4 py-2 w-100 w-sm-auto"
                         onClick={() => addToCart(pizza)}
                       >
                         Añadir 🛒
@@ -162,4 +163,4 @@ const Pizza = () => {
   );
 };
 
-export default Pizza;
+exports default Pizza; 
