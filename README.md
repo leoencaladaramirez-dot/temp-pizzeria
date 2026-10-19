@@ -1,26 +1,30 @@
-# Pizzería Mamma Mía - Hito 5
+# Pizzería Mamma Mía - Hito 6
 
-Proyecto desarrollado en React (Vite) en el marco de la Academia de Talentos Digitales (Desafío Latam), enfocado en la implementación de rutas dinámicas mediante **React Router DOM**, manejo de parámetros en la URL (`:id`), visualización detallada de productos individuales (`Pizza.jsx`), sincronización de datos locales y globales, y control interactivo de cantidades del carrito de compras.
+Proyecto desarrollado en React (Vite) en el marco de la Academia de Talentos Digitales (Desafío Latam), enfocado en la implementación y gestión del **Estado Global con Context API** para el manejo completo del carrito de compras.
 
-## 🚀 Funcionalidades del Hito 5
-- **Rutas Dinámicas e Identificadores (`App.jsx` y `Pizza.jsx`):**
-  - Configuración de una ruta dinámica basada en parámetros (`/pizza/:id`) en `App.jsx` para permitir el acceso individual a cada producto del catálogo.
-  - Uso del hook `useParams` de `react-router-dom` para capturar el identificador de la pizza seleccionada desde la URL.
+## 🚀 Funcionalidades del Hito 6
+- **Implementación de Estado Global (`CartContext.jsx`):**
+  - Creación de un contexto dedicado a administrar el carrito de compras de manera centralizada.
+  - Funciones optimizadas para agregar productos (`addToCart`), incrementar cantidades e identificar elementos existentes, además de disminuir o eliminar ítems dinámicamente (`removeFromCart`).
 
-- **Gestión de Datos y Respaldo Local:**
-  - Implementación de un catálogo de respaldo robusto en el componente `Pizza.jsx` con asignación flexible de IDs y carga instantánea de información detallada (descripción, ingredientes y precios formateados).
-  - Integración de recursos visuales locales almacenados en la carpeta `public/img/` mediante plantillas de texto dinámicas (`/img/${id}.jpeg`) para asegurar la consistencia gráfica.
+- **Sincronización en el Navbar (`Navbar.jsx`):**
+  - Consumo de `CartContext` para calcular en tiempo real el precio total de los productos añadidos al carrito.
+  - Visualización automática del monto total actualizado en la barra de navegación superior.
 
-- **Sincronización Interactiva con el Carrito (`CartContext`):**
-  - Incorporación del botón "Añadir 🛒" y controles interactivos de incremento (`+`) y decremento (`-`) sincronizados directamente con el estado global del carrito.
-  - Verificación en tiempo real de la cantidad de unidades agregadas de cada pizza para alternar de manera fluida entre la opción de compra inicial y el selector dinámico.
+- **Integración en Tarjetas del Catálogo (`CardPizza.jsx`):**
+  - Consumo del contexto en las tarjetas del componente principal (`Home`/`CardPizza`) permitiendo al usuario añadir pizzas al carrito de forma interactiva con un solo clic.
+
+- **Gestión Completa en la Vista del Carrito (`Cart.jsx`):**
+  - Renderizado dinámico de los productos seleccionados por el usuario utilizando el estado global.
+  - Controles interactivos de incremento (`+`) y reducción/eliminación (`-`) por cada ítem.
+  - Cálculo automatizado del total de la compra sincronizado de manera exacta con el valor mostrado en el `Navbar`.
 
 ## 🛠️ Tecnologías Utilizadas
 - React (Vite)
-- React Router DOM (`useParams`)
-- Context API (Sincronización del estado global del carrito)
+- Context API (`createContext`, `useContext`)
+- React Router DOM
 - Bootstrap 5.3.3
-- JavaScript (ES6+ / Async-Await)
+- JavaScript (ES6+ / Métodos de arreglos como `reduce`, `map`, `find`)
 
 ## 👨‍💻 Hecho por
 
