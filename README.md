@@ -1,30 +1,37 @@
-# Pizzería Mamma Mía - Hito 6
+# 🍕 Pizzería Mamma Mía! - Hito 7
 
-Proyecto desarrollado en React (Vite) en el marco de la Academia de Talentos Digitales (Desafío Latam), enfocado en la implementación y gestión del **Estado Global con Context API** para el manejo completo del carrito de compras.
+Este proyecto forma parte del bootcamp de desarrollo web en React de Desafío Latam. En este **Hito 7**, se implementó una arquitectura avanzada utilizando **React Router II**, gestión global de estados con Context API (`UserContext`), rutas protegidas y consumo de rutas dinámicas por ID (`useParams`).
 
-## 🚀 Funcionalidades del Hito 6
-- **Implementación de Estado Global (`CartContext.jsx`):**
-  - Creación de un contexto dedicado a administrar el carrito de compras de manera centralizada.
-  - Funciones optimizadas para agregar productos (`addToCart`), incrementar cantidades e identificar elementos existentes, además de disminuir o eliminar ítems dinámicamente (`removeFromCart`).
+## 🚀 Características y Requerimientos Implementados
 
-- **Sincronización en el Navbar (`Navbar.jsx`):**
-  - Consumo de `CartContext` para calcular en tiempo real el precio total de los productos añadidos al carrito.
-  - Visualización automática del monto total actualizado en la barra de navegación superior.
+1. **Rutas Dinámicas y Petición por ID (`Pizza.jsx`)**:
+   - Implementación de `useParams` para extraer el identificador único de cada pizza.
+   - Conexión con el endpoint de la API (`/api/pizzas/:id`) y un sistema de respaldo (*fallback*) integrado para garantizar la estabilidad visual ante interrupciones del servidor local.
 
-- **Integración en Tarjetas del Catálogo (`CardPizza.jsx`):**
-  - Consumo del contexto en las tarjetas del componente principal (`Home`/`CardPizza`) permitiendo al usuario añadir pizzas al carrito de forma interactiva con un solo clic.
+2. **Gestión Global de Autenticación (`UserContext`)**:
+   - Creación del contexto `UserContext` para administrar de forma centralizada el estado del token de usuario (inicializado en `true`).
+   - Implementación de la función `logout` para simular el cierre de sesión cambiando el token a `false`.
 
-- **Gestión Completa en la Vista del Carrito (`Cart.jsx`):**
-  - Renderizado dinámico de los productos seleccionados por el usuario utilizando el estado global.
-  - Controles interactivos de incremento (`+`) y reducción/eliminación (`-`) por cada ítem.
-  - Cálculo automatizado del total de la compra sincronizado de manera exacta con el valor mostrado en el `Navbar`.
+3. **Navbar Condicional**:
+   - Consumo del `UserContext` en el componente de navegación:
+     - Con **Token Activo (`true`)**: Muestra los botones de **Profile** y **Logout** (ejecutando la función de cierre de sesión).
+     - Sin Token (`false`): Muestra los botones de **Iniciar sesión** y **Regístrate**.
+     - El enlace de **Inicio** y el contador del **Carrito** se mantienen siempre visibles.
+
+4. **Validación de Pago en el Carrito (`Cart.jsx`)**:
+   - Integración del `UserContext` para condicionar y deshabilitar automáticamente el botón de **"Pagar"** cuando el usuario no cuenta con una sesión activa (`token` en `false`).
+
+5. **Rutas Protegidas y Restringidas (`App.jsx`)**:
+   - Protección de la ruta `/profile`: Redirige automáticamente a `/login` si el token es `false`.
+   - Restricción de rutas públicas (`/login` y `/register`): Evita que un usuario con sesión activa acceda a estas vistas, redirigiéndolo al Home.
 
 ## 🛠️ Tecnologías Utilizadas
-- React (Vite)
-- Context API (`createContext`, `useContext`)
-- React Router DOM
-- Bootstrap 5.3.3
-- JavaScript (ES6+ / Métodos de arreglos como `reduce`, `map`, `find`)
+- **React.js** (con Vite)
+- **React Router DOM** (`useParams`, `Navigate`, rutas anidadas/protegidas)
+- **Context API** (`CartContext` y `UserContext`)
+- **Bootstrap 5** para el diseño responsivo
+- **JavaScript (ES6+)**
+
 
 ## 👨‍💻 Hecho por
 

@@ -1,9 +1,11 @@
 import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
+import { UserContext } from '../context/UserContext';
 import { formatNumber } from '../utils/format';
 
 const Cart = () => {
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
+  const { token } = useContext(UserContext);
 
   const total = cart.reduce((acc, item) => acc + (Number(item.price) * Number(item.count)), 0);
 
@@ -39,7 +41,10 @@ const Cart = () => {
 
         <div className="d-flex justify-content-between align-items-center border-top pt-3 mt-2">
           <h3 className="fw-bold mb-0">Total: ${formatNumber(total)}</h3>
-          <button className={`btn ${cart.length === 0 ? 'btn-secondary disabled' : 'btn-dark px-4'}`}>
+          <button 
+            className={`btn ${cart.length === 0 || !token ? 'btn-secondary disabled' : 'btn-dark px-4'}`}
+            disabled={!token || cart.length === 0}
+          >
             Pagar
           </button>
         </div>

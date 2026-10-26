@@ -11,72 +11,36 @@ const Pizza = () => {
   const { cart, addToCart, removeFromCart } = useContext(CartContext);
 
   useEffect(() => {
-    const loadPizzaData = () => {
-      setLoading(true);
-      
-      const fallbackPizzas = [
-        {
-          id: "p001",
-          name: "napolitana",
-          price: 5950,
-          ingredients: ["mozzarella", "tomates", "jamón", "orégano"],
-          img: "/img/p001.jpeg",
-          desc: "Una clásica pizza napolitana con un toque auténtico y delicioso queso mozzarella."
-        },
-        {
-          id: "p002",
-          name: "española",
-          price: 6950,
-          ingredients: ["mozzarella", "gorgonzola", "parmesano", "provolone"],
-          img: "/img/p002.jpeg",
-          desc: "Combinación de quesos intensos para los verdaderos amantes del buen sabor."
-        },
-        {
-          id: "p003",
-          name: "salame",
-          price: 5950,
-          ingredients: ["mozzarella", "tomates", "salame italiano", "orégano"],
-          img: "/img/p003.jpeg",
-          desc: "Deliciosa pizza cubierta con finas rodajas de salame italiano de primera calidad."
-        },
-        {
-          id: "p004",
-          name: "cuatro quesos",
-          price: 6950,
-          ingredients: ["mozzarella", "gorgonzola", "parmesano", "provolone"],
-          img: "/img/p004.jpeg",
-          desc: "Una explosión de quesos derretidos sobre nuestra masa crujiente artesanal."
-        },
-        {
-          id: "p005",
-          name: "pollo",
-          price: 7250,
-          ingredients: ["mozzarella", "pollo desmenuzado", "champiñones", "cebolla morada"],
-          img: "/img/p005.jpeg",
-          desc: "Tiernos trozos de pollo combinados con champiñones frescos y cebolla morada."
-        },
-        {
-          id: "p006",
-          name: "pepperoni",
-          price: 6500,
-          ingredients: ["mozzarella", "pepperoni", "orégano"],
-          img: "/img/p006.jpeg",
-          desc: "El clásico indiscutible con generosas rodajas de pepperoni ligeramente picante."
-        }
-      ];
+    const fetchPizza = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`http://localhost:5000/api/pizzas/${id}`);
+        if (!response.ok) throw new Error("Error en la API");
+        const data = await response.json();
+        setPizza(data);
+      } catch (error) {
+        console.warn("Servidor backend no disponible, usando datos locales:", error);
+        
+        // Datos de respaldo por si el servidor no está corriendo
+        const fallbackPizzas = [
+          { id: "p001", name: "napolitana", price: 5950, ingredients: ["mozzarella", "tomates", "jamón", "orégano"], img: "/img/p001.jpeg", desc: "Una clásica pizza napolitana con un toque auténtico y delicioso queso mozzarella." },
+          { id: "p002", name: "española", price: 6950, ingredients: ["mozzarella", "gorgonzola", "parmesano", "provolone"], img: "/img/p002.jpeg", desc: "Combinación de quesos intensos para los verdaderos amantes del buen sabor." },
+          { id: "p003", name: "salame", price: 5950, ingredients: ["mozzarella", "tomates", "salame italiano", "orégano"], img: "/img/p003.jpeg", desc: "Deliciosa pizza cubierta con finas rodajas de salame italiano de primera calidad." },
+          { id: "p004", name: "cuatro quesos", price: 6950, ingredients: ["mozzarella", "gorgonzola", "parmesano", "provolone"], img: "/img/p004.jpeg", desc: "Una explosión de quesos derretidos sobre nuestra masa crujiente artesanal." },
+          { id: "p005", name: "pollo", price: 7250, ingredients: ["mozzarella", "pollo desmenuzado", "champiñones", "cebolla morada"], img: "/img/p005.jpeg", desc: "Tiernos trozos de pollo combinados con champiñones frescos y cebolla morada." },
+          { id: "p006", name: "pepperoni", price: 6500, ingredients: ["mozzarella", "pepperoni", "orégano"], img: "/img/p006.jpeg", desc: "El clásico indiscutible con generosas rodajas de pepperoni ligeramente picante." }
+        ];
 
-      const found = fallbackPizzas.find(p => p.id.toLowerCase() === id?.toLowerCase());
-      
-      if (found) {
-        setPizza(found);
-      } else {
-        setPizza(fallbackPizzas[0]);
+        const found = fallbackPizzas.find(p => p.id.toLowerCase() === id?.toLowerCase());
+        setPizza(found || fallbackPizzas[0]);
+      } finally {
+        setLoading(false);
       }
-      
-      setLoading(false);
     };
 
-    loadPizzaData();
+    if (id) {
+      fetchPizza();
+    }
   }, [id]);
 
   if (loading) {
@@ -96,7 +60,6 @@ const Pizza = () => {
         <div className="col-12 col-md-10 col-lg-9">
           <div className="card shadow-sm p-3 p-md-4">
             <div className="row align-items-center">
-              
               <div className="col-12 col-md-6 mb-3 mb-md-0">
                 <img 
                   src={pizza.img} 
@@ -108,7 +71,6 @@ const Pizza = () => {
                   }}
                 />
               </div>
-              
               
               <div className="col-12 col-md-6 d-flex flex-column justify-content-between">
                 <div>
@@ -123,7 +85,6 @@ const Pizza = () => {
                   </ul>
                 </div>
 
-                
                 <div className="mt-4 pt-3 border-top d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3">
                   <h4 className="fw-bold text-dark mb-0 fs-4">Precio: ${formatNumber(pizza.price)}</h4>
                   
@@ -163,4 +124,4 @@ const Pizza = () => {
   );
 };
 
-export default Pizza; 
+export default Pizza;

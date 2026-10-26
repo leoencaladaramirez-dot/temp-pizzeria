@@ -1,12 +1,13 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
+import { UserContext } from '../context/UserContext';
 import { formatNumber } from '../utils/format';
 
 const Navbar = () => {
   const { cart } = useContext(CartContext);
+  const { token, logout } = useContext(UserContext);
 
-  
   const total = cart.reduce((acc, item) => acc + (Number(item.price) * Number(item.count)), 0);
 
   return (
@@ -19,12 +20,26 @@ const Navbar = () => {
           <Link to="/" className="btn btn-outline-light btn-sm">
             🍕 Inicio
           </Link>
-          <Link to="/login" className="btn btn-outline-light btn-sm">
-            🔐 Iniciar sesión
-          </Link>
-          <Link to="/register" className="btn btn-outline-light btn-sm">
-            🔐 Regístrate
-          </Link>
+          
+          {token ? (
+            <>
+              <Link to="/profile" className="btn btn-outline-light btn-sm">
+                🔓 Profile
+              </Link>
+              <button onClick={logout} className="btn btn-outline-light btn-sm">
+                🔒 Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="btn btn-outline-light btn-sm">
+                🔐 Iniciar sesión
+              </Link>
+              <Link to="/register" className="btn btn-outline-light btn-sm">
+                🔐 Regístrate
+              </Link>
+            </>
+          )}
         </div>
         <div className="d-flex">
           <Link to="/cart" className="btn btn-outline-info text-white">
